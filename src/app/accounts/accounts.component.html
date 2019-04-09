@@ -1,3 +1,37 @@
 <p>
-  accounts works! {{ baseUrl }}
+  accounts works!
 </p>
+
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Account ID</th>
+            <th>Balance</th>
+        </tr>
+    </thead>
+    <tr *ngFor="let acc of accounts">
+        <td>
+            <a >
+            	{{ acc.holder?.accountHolderName }}
+            </a>
+            <div class="accountIdentifiers UK" *ngIf="acc.currency == 'GBP'">
+            	<b>Sort Code: </b> {{ acc.identifiers?.bankIdentifier }}<br/>
+            	<b>Account No: </b> {{ acc.identifiers?.accountIdentifier }}
+            </div>
+            <div class="accountIdentifiers nonUK" *ngIf="acc.currency != 'GBP'">
+            	<b>IBAN: </b> {{ acc.identifiers?.iban }}<br/>
+            	<b>Bic: </b> {{ acc.identifiers?.bic }}
+            </div>
+        </td>
+        <td>
+        	<b>Available Balance: </b>{{ acc.balances?.effectiveBalance.minorUnits/100 | currency: acc.balances?.effectiveBalance.currency }} <br/>
+        	<b>Cleared Balance: </b>{{ acc.balances?.clearedBalance.minorUnits/100 | currency: acc.balances?.clearedBalance.currency }} 
+        </td>
+    </tr>
+    <tr *ngIf="!accounts">
+        <td colspan="2">No accounts found</td>
+    </tr>
+</table>
+Number of Accounts: {{ accounts.length }}
+<br />

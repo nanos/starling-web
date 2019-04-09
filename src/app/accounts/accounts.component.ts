@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 import { AppConfig } from '../app.config';
+import { DataService } from '../core/data.service';
 
 @Component({
   selector: 'app-accounts',
@@ -10,12 +11,17 @@ import { AppConfig } from '../app.config';
 export class AccountsComponent implements OnInit {
   title: string;
   baseUrl: string;
+  accounts: any[] = [] ;
 
-  constructor() { }
+  constructor( private dataService: DataService) { }
 
   ngOnInit() {
-	this.baseUrl = AppConfig.settings.starling_url
+
+    this.baseUrl = AppConfig.settings.starling_url
   	this.title = 'Account';
+
+  	this.dataService.getAccounts()
+  	    .subscribe( (accounts:any[]) => this.accounts = accounts );
   }
 
 }
