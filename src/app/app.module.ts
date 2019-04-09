@@ -1,10 +1,13 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, APP_INITIALIZER  } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
+
 
 
 import { AppConfig } from './app.config';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AccountsModule } from './accounts/accounts.module';
 
 export function initializeApp(appConfig: AppConfig) {
   return () => appConfig.load();
@@ -16,7 +19,9 @@ export function initializeApp(appConfig: AppConfig) {
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    HttpClientModule,
+    AppRoutingModule,
+    AccountsModule
   ],
   providers: [
   	AppConfig, { 
