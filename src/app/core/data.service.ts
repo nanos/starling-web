@@ -53,6 +53,17 @@ export class DataService {
         catchError(this.handleError)
       );
     }
+
+    getTransactions(id: string, category: string): Observable<any> {
+      return this.http.get('/api/v2/feed/account/'+id+'/category/'+category)
+      .pipe(
+        map( resp => {
+          return resp.feedItems
+        }),
+        catchError(this.handleError)
+      );
+
+    }
     
     private handleError(error: any) {
       console.error('server error:', error);

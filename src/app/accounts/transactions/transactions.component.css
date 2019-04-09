@@ -1,0 +1,10 @@
+:host {
+  box-sizing: border-box;
+  display: none;
+  padding: 20px 10px;
+  background: #ccc;
+}
+
+:host.is-open {
+  display: block;
+}

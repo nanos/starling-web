@@ -9,6 +9,7 @@ import { AppConfig } from './app.config';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AccountsModule } from './accounts/accounts.module';
+// import { TransactionsModule } from './transactions/transactions.module';
 
 export function initializeApp(appConfig: AppConfig) {
   return () => appConfig.load();
