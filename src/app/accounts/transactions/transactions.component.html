@@ -6,8 +6,7 @@
 			<th>Description</th>
 			<th>Date</th>
 			<th></th>
-			<th>Amount In</th>
-			<th>Amount Out</th>
+			<th>Amount</th>
 			<th></th>
 		</tr>
 
@@ -19,20 +18,13 @@
 				{{ item.transactionTime | date }}
 			</td>
 			<td>
-				<i class="fas fa-{{ item.icon }}" title="{{ item.source }}"></i>
+				<i class="fas fa-{{ item.icon }}" title="{{ item.source | formatStarlingText }}"></i>
 			</td>
-			<td class="amount">
-				<span *ngIf="item.direction === 'IN'">
-					{{ item.amount.minorUnits/100 | currency:item.amount.currency }}
-				</span>
-			</td>
-			<td class="amount">
-				<span *ngIf="item.direction === 'OUT'">
-					{{ item.amount.minorUnits/100 | currency:item.amount.currency }}
-				</span>
+			<td class="amount {{ item.direction }}">
+				{{ item.amount.minorUnits/100 | currency:item.amount.currency }}
 			</td>
 			<td class="status">
- 				<i *ngIf="item.status !== 'SETTLED'" class="fas fa-info-circle" title="{{ item.status | titlecase }}"></i>
+ 				<i *ngIf="item.status !== 'SETTLED'" class="fas fa-info-circle" title="{{ item.status | formatStarlingText }}"></i>
 			</td>
 		</tr>
 	</table>

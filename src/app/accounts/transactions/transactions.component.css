@@ -37,6 +37,14 @@ tr.REVERSED, tr.ACCOUNT_CHECK, tr.UPCOMING, tr.PENDING tr.DECLINED {
   opacity: 0.5;
 }
 
+td.amount.OUT {
+  color: var(--accentcolour2);
+}
+
+td.amount.OUT:before {
+  content: '-';
+}
+
 tr.DECLINED {
   opacity: 0.5;
   text-decoration: line-through;
