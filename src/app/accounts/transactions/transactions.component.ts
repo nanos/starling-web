@@ -2,6 +2,7 @@ import { Component, OnInit, Input, HostBinding } from '@angular/core';
 // import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { DataService } from '../../core/data.service';
+import { ITransaction } from '../../models/interfaces.model';
 
 @Component({
   selector: 'app-accounts-transactions',
@@ -10,10 +11,11 @@ import { DataService } from '../../core/data.service';
 })
 export class AccountsTransactionsComponent implements OnInit {
 	private _account: any[] = [];
-  account: any[] = [];
-  transactions: any[] = [];
-  isOpen: boolean = false;
-	@Input() get account(): any[] {
+  filteredTransactions: ITransaction[];
+
+  transactions: ITransaction[] = [];
+  
+  @Input() get account(): any[] {
 		return this._account;
 	}
 
@@ -38,11 +40,11 @@ export class AccountsTransactionsComponent implements OnInit {
 
   filter(data: string) {
         if (data) {
-            this.filteredTransactions = this.transactions.filter((trans) => {
+            this.filteredTransactions = this.transactions.filter((trans:ITransaction) => {
                 console.log(trans.counterPartyName, data, trans.counterPartyName.toLowerCase().indexOf(data.toLowerCase()));
                 return trans.counterPartyName.toLowerCase().indexOf(data.toLowerCase()) > -1 ||
                        trans.reference.toLowerCase().indexOf(data.toLowerCase()) > -1 ||
-                       trans.amount.minorUnits === data * 100 ;
+                       trans.amount.minorUnits == parseInt(data) * 100 ;
             });
         } else {
             this.filteredTransactions = this.transactions;

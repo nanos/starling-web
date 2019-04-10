@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 
 import { AppConfig } from '../app.config';
 import { DataService } from '../core/data.service';
+import { IAccount } from '../models/interfaces.model';
 
 @Component({
   selector: 'app-accounts',
@@ -12,7 +13,7 @@ import { DataService } from '../core/data.service';
 export class AccountsComponent implements OnInit {
   title: string;
   baseUrl: string;
-  accounts: any[] = [] ;
+  accounts: IAccount[] = [] ;
   transactionsListed: boolean = false;
 
   constructor( private dataService: DataService ) { }
@@ -28,10 +29,6 @@ export class AccountsComponent implements OnInit {
           });
     }
 
-  }
-
-  listTransactions( id: string ) {
-    this.showTransactionsService.toggle( id );
   }
 
 }

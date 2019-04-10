@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
 
 import { AppConfig } from '../app.config';
-
+import { IAccount, ITransaction } from '../models/interfaces.model';
 
 @Injectable()
 export class DataService {
@@ -14,7 +14,7 @@ export class DataService {
     
     constructor(private http: HttpClient) { }
 
-   getAuthHeader( account: object ) {
+   getAuthHeader( account: IAccount ) {
       return{
         headers: new HttpHeaders({
           'Authorization': 'Bearer '+account.api_key
@@ -23,10 +23,11 @@ export class DataService {
    }
 
     getAccounts( api_key: string) : Observable<any> {
-      return this.http.get('/api/v2/accounts', this.getAuthHeader({api_key}))
+      const account = {api_key : api_key} as IAccount;
+      return this.http.get('/api/v2/accounts', this.getAuthHeader(account))
           .pipe(
-            map( resp => {
-              let accounts = [];
+            map( (resp:any) => {
+              let accounts: IAccount[] = [];
               for( let acc of resp.accounts ) {
                 acc.api_key = api_key
                 this.getAccountIdentifiers(acc).subscribe((identifiers:any[]) => acc.identifiers = identifiers);
@@ -42,21 +43,21 @@ export class DataService {
           );
     }
 
-    getAccountIdentifiers(account: object): Observable<any>{
+    getAccountIdentifiers(account: IAccount): Observable<any>{
       return this.http.get('/api/v2/accounts/'+account.accountUid+'/identifiers', this.getAuthHeader(account))
       .pipe(
         catchError(this.handleError)
       );
     }
 
-    getAccountHolder(account: object): Observable<any> {
+    getAccountHolder(account: IAccount): Observable<any> {
       return this.http.get('/api/v2/account-holder/name', this.getAuthHeader(account))
       .pipe(
         catchError(this.handleError)
       );
     }
 
-    getAccountBalances(account: object): Observable<any>{
+    getAccountBalances(account: IAccount): Observable<any>{
       return this.http.get('/api/v2/accounts/'+account.accountUid+'/balance', this.getAuthHeader(account))
       .pipe(
         catchError(this.handleError)
@@ -97,7 +98,7 @@ export class DataService {
       };
       return this.http.get('/api/v2/feed/account/'+account.accountUid+'/category/'+account.defaultCategory, this.getAuthHeader(account))
       .pipe(
-        map( resp=> {
+        map( (resp:any)=> {
           resp.feedItems.map(function(item){
             item.icon = icons[item.source] || 'receipt';
           })
