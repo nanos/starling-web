@@ -1,10 +1,43 @@
 :host {
-  box-sizing: border-box;
   display: none;
-  padding: 20px 10px;
-  background: #ccc;
 }
 
 :host.is-open {
   display: block;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+td, th {
+  padding: 0.5em 0.2em;
+}
+
+td.amount {
+  text-align: right;
+}
+
+tr {
+  border: solid;
+  border-width: 1px 0;
+  border-color: var(--textcolour);
+}
+
+tr.header {
+  background-color: var(--accentcolour1);
+}
+
+tr:nth-of-type(2n) {
+  background-color: var(--lightcolour);
+}
+
+tr.REVERSED, tr.ACCOUNT_CHECK, tr.UPCOMING, tr.PENDING tr.DECLINED {
+  opacity: 0.5;
+}
+
+tr.DECLINED {
+  opacity: 0.5;
+  text-decoration: line-through;
 }
