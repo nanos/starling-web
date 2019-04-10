@@ -50,6 +50,27 @@ tr.DECLINED {
   text-decoration: line-through;
 }
 
+@keyframes spinner {
+  to {transform: rotate(360deg);}
+}
+
+.loading {
+  text-align: center;
+}
+
+.loading:before {
+  display: inline-block;
+  content: '';
+  box-sizing: border-box;
+  width: 20px;
+  height: 20px;
+  margin-top: -10px;
+  margin-left: -10px;
+  border-radius: 50%;
+  border: 2px solid var(--textcolour);
+  border-top-color: var(--accentcolour1);
+  animation: spinner .6s linear infinite;
+}
 
 @media screen and (max-width: 560px) {
   table, td {

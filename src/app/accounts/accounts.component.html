@@ -25,12 +25,13 @@
 	        		<div class="label">Cleared Balance: </div><div class="amount">{{ acc.balances?.clearedBalance.minorUnits/100 | currency: acc.balances?.clearedBalance.currency }} </div>
 	        	</div>
 	        	<div class="overdraft balance">
-	        		<div class="label">Cleared Balance: </div><div class="amount">{{ acc.balances?.acceptedOverdraft.minorUnits/100 | currency: acc.balances?.acceptedOverdraft.currency }} </div>
+	        		<div class="label">Accepted Overdraft: </div><div class="amount">{{ acc.balances?.acceptedOverdraft.minorUnits/100 | currency: acc.balances?.acceptedOverdraft.currency }} </div>
 	        	</div>
 	        </div>
 	    </div>
 
-	    <app-accounts-transactions [account]=acc></app-accounts-transactions>
+	    <app-accounts-transactions [account]=acc>
+	    </app-accounts-transactions>
 	</div>
     <div class="account" *ngIf="!accounts">
         No accounts found
