@@ -1,8 +1,8 @@
-:host {
+.list-transactions {
   display: none;
 }
 
-:host.is-open {
+.list-transactions.is-open {
   display: block;
 }
 
@@ -48,4 +48,37 @@ td.amount.OUT:before {
 tr.DECLINED {
   opacity: 0.5;
   text-decoration: line-through;
+}
+
+
+@media screen and (max-width: 560px) {
+  table, td {
+    display: block;
+  }
+  tr.header {
+    display: none;
+  }
+  tr {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  td.description {
+    flex:1 0 calc( 100% - 20px - 0.8em );
+  }
+
+  td {
+    display: block;
+  }
+
+  td.source, td.status {
+    flex: 0 0 20px;
+  }
+
+  td.amount {
+    margin-left: auto;
+  }
+
+  td.source {
+    margin-left: auto;
+  }
 }

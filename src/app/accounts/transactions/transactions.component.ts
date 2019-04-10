@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, Output, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, HostBinding } from '@angular/core';
 // import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { DataService } from '../../core/data.service';
-import { ShowTransactionsService } from '../../core/show-transactions.service';
 
 @Component({
   selector: 'app-accounts-transactions',
@@ -26,25 +25,28 @@ export class AccountsTransactionsComponent implements OnInit {
 
   @HostBinding('class.is-open') isOpen = false;
 
+  constructor(private dataService: DataService) { }
 
+  ngOnInit() {}
 
-  constructor(private dataService: DataService, private showTransactionsService: ShowTransactionsService) { }
-
-  ngOnInit() {
-  	this.showTransactionsService.change.subscribe( accountUid => {
-      // check we are using the current account
-      if ( accountUid == this.account.accountUid ) {
-
-        this.isOpen = !this.isOpen;
-        
-        this.dataService.getTransactions(this.account)
-            .subscribe( (transactions:any[]) => this.transactions = transactions );
-      }
-     });
+  listTransactions() {
+    this.isOpen = !this.isOpen;
+    
+    this.dataService.getTransactions(this.account)
+        .subscribe( (transactions:any[]) => this.transactions = this.filteredTransactions = transactions );
   }
 
-  listTransactions( id: string, category: string) {
-    console.log('listing transactions', id, category);
-  }
+  filter(data: string) {
+        if (data) {
+            this.filteredTransactions = this.transactions.filter((trans) => {
+                console.log(trans.counterPartyName, data, trans.counterPartyName.toLowerCase().indexOf(data.toLowerCase()));
+                return trans.counterPartyName.toLowerCase().indexOf(data.toLowerCase()) > -1 ||
+                       trans.reference.toLowerCase().indexOf(data.toLowerCase()) > -1 ||
+                       trans.amount.minorUnits === data * 100 ;
+            });
+        } else {
+            this.filteredTransactions = this.transactions;
+        }
+    }
 
 }

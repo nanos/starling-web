@@ -1,12 +1,12 @@
 
 <div class="accounts-container">
-	<div *ngFor="let acc of accounts" (click)="listTransactions(acc.accountUid, acc.defaultCategory)" class="account">
+	<div *ngFor="let acc of accounts" class="account">
 
+		<h2 class="account-name title">
+            {{ acc.holder?.accountHolderName }}
+		</h2>
 		<div class="account-defs">
 			<div class="account-details">
-				<div class="account-name title">
-		            {{ acc.holder?.accountHolderName }}
-				</div>
 		        <div class="account-identifiers UK" *ngIf="acc.currency == 'GBP'">
 		        	<b>Sort Code: </b> {{ acc.identifiers?.bankIdentifier }}<br/>
 		        	<b>Account No: </b> {{ acc.identifiers?.accountIdentifier }}

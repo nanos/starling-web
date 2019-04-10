@@ -7,16 +7,26 @@
 
 
 .account-defs {
-	display: grid;
-	grid-template-columns: 3fr 1fr;
-	grid-gap: .5em;
+	display: flex;
+}
+
+.account-defs :last-child {
+	margin-left: auto;
 }
 
 .account-balances .balance {
-	display: grid;
-	grid-template-columns: 2fr 1fr;
-	grid-gap: 0.5em;
+	display: flex;
+}
+.account-balances .balance .label {
+	margin-right: 1em;
 }
 .account-balances .balance .amount {
 	text-align: right;
+	margin-left: auto;
+}
+
+@media screen and (max-width: 560px) {
+	.account-defs {
+		display: block;
+	}
 }

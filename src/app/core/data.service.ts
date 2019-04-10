@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -14,15 +14,24 @@ export class DataService {
     
     constructor(private http: HttpClient) { }
 
-    getAccounts() : Observable<any> {
-      return this.http.get('/api/v2/accounts')
+   getAuthHeader( account: object ) {
+      return{
+        headers: new HttpHeaders({
+          'Authorization': 'Bearer '+account.api_key
+        })
+      };
+   }
+
+    getAccounts( api_key: string) : Observable<any> {
+      return this.http.get('/api/v2/accounts', this.getAuthHeader({api_key}))
           .pipe(
             map( resp => {
               let accounts = [];
               for( let acc of resp.accounts ) {
-                this.getAccountIdentifiers(acc.accountUid).subscribe((identifiers:any[]) => acc.identifiers = identifiers);
-                this.getAccountBalances(acc.accountUid).subscribe((balances:any[]) => acc.balances = balances);
-                this.getAccountHolder(acc.accountUid).subscribe((holder:any[]) => acc.holder = holder);
+                acc.api_key = api_key
+                this.getAccountIdentifiers(acc).subscribe((identifiers:any[]) => acc.identifiers = identifiers);
+                this.getAccountBalances(acc).subscribe((balances:any[]) => acc.balances = balances);
+                this.getAccountHolder(acc).subscribe((holder:any[]) => acc.holder = holder);
                 accounts.push(acc);
               }
               console.log(accounts);
@@ -33,22 +42,22 @@ export class DataService {
           );
     }
 
-    getAccountIdentifiers(id: string): Observable<any>{
-      return this.http.get('/api/v2/accounts/'+id+'/identifiers')
+    getAccountIdentifiers(account: object): Observable<any>{
+      return this.http.get('/api/v2/accounts/'+account.accountUid+'/identifiers', this.getAuthHeader(account))
       .pipe(
         catchError(this.handleError)
       );
     }
 
-    getAccountHolder(id: string): Observable<any> {
-      return this.http.get('/api/v2/account-holder/name')
+    getAccountHolder(account: object): Observable<any> {
+      return this.http.get('/api/v2/account-holder/name', this.getAuthHeader(account))
       .pipe(
         catchError(this.handleError)
       );
     }
 
-    getAccountBalances(id: string): Observable<any>{
-      return this.http.get('/api/v2/accounts/'+id+'/balance')
+    getAccountBalances(account: object): Observable<any>{
+      return this.http.get('/api/v2/accounts/'+account.accountUid+'/balance', this.getAuthHeader(account))
       .pipe(
         catchError(this.handleError)
       );
@@ -86,7 +95,7 @@ export class DataService {
         'LOAN_OVERPAYMENT': 'coins', 
         'LOAN_LATE_PAYMENT': 'coins'
       };
-      return this.http.get('/api/v2/feed/account/'+account.accountUid+'/category/'+account.defaultCategory)
+      return this.http.get('/api/v2/feed/account/'+account.accountUid+'/category/'+account.defaultCategory, this.getAuthHeader(account))
       .pipe(
         map( resp=> {
           resp.feedItems.map(function(item){

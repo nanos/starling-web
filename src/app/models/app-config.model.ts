@@ -1,4 +1,4 @@
 export interface IAppConfig {
-    starling_api_key: string,
+    api_keys: any[],
     starling_url: string
 }

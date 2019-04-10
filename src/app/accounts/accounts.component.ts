@@ -2,11 +2,11 @@ import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 
 import { AppConfig } from '../app.config';
 import { DataService } from '../core/data.service';
-import { ShowTransactionsService } from '../core/show-transactions.service';
 
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
+  
   styleUrls: ['./accounts.component.css']
 })
 export class AccountsComponent implements OnInit {
@@ -15,12 +15,19 @@ export class AccountsComponent implements OnInit {
   accounts: any[] = [] ;
   transactionsListed: boolean = false;
 
-  constructor( private dataService: DataService, private showTransactionsService: ShowTransactionsService ) { }
+  constructor( private dataService: DataService ) { }
 
   ngOnInit() {
+    for( let key of AppConfig.settings.api_keys ) {
+    	this.dataService.getAccounts( key )
+    	    .subscribe( (accounts:any[]) => {
+            for( let acc of accounts ) {
+              acc.api_key = key;
+              this.accounts.push(acc);
+            }
+          });
+    }
 
-  	this.dataService.getAccounts()
-  	    .subscribe( (accounts:any[]) => this.accounts = accounts );
   }
 
   listTransactions( id: string ) {
