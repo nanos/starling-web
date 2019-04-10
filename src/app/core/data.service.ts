@@ -54,8 +54,8 @@ export class DataService {
       );
     }
 
-    getTransactions(id: string, category: string): Observable<any> {
-      return this.http.get('/api/v2/feed/account/'+id+'/category/'+category)
+    getTransactions(account): Observable<any> {
+      return this.http.get('/api/v2/feed/account/'+account.accountUid+'/category/'+account.defaultCategory)
       .pipe(
         map( resp => {
           return resp.feedItems

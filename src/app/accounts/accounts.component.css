@@ -1,0 +1,22 @@
+.account {
+	padding: 1em;
+	margin: 1em;
+	background-color: var(--mediumcolour);
+	cursor: pointer;
+}
+
+
+.account-defs {
+	display: grid;
+	grid-template-columns: 3fr 1fr;
+	grid-gap: .5em;
+}
+
+.account-balances .balance {
+	display: grid;
+	grid-template-columns: 2fr 1fr;
+	grid-gap: 0.5em;
+}
+.account-balances .balance .amount {
+	text-align: right;
+}

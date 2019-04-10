@@ -1,4 +1,4 @@
-import { Component, OnInit, Input,EventEmitter, HostListener } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter } from '@angular/core';
 
 import { AppConfig } from '../app.config';
 import { DataService } from '../core/data.service';
@@ -19,23 +19,12 @@ export class AccountsComponent implements OnInit {
 
   ngOnInit() {
 
-    this.baseUrl = AppConfig.settings.starling_url
-  	this.title = 'Account';
-
   	this.dataService.getAccounts()
   	    .subscribe( (accounts:any[]) => this.accounts = accounts );
-
-    this.showTransactionsService.change.subscribe(transactionsListed => {
-      this.transactionsListed = transactionsListed;
-      console.log('transactionsListed?', this.transactionsListed);
-    });
   }
 
-  listTransactions( id: string, category: string) {
-    console.log('listing', id, category);
-    this.showTransactionsService.setParams( id, category );
-    this.showTransactionsService.toggle();
-    // this.transactionsListed = ! this.transactionsListed;
+  listTransactions( id: string ) {
+    this.showTransactionsService.toggle( id );
   }
 
 }

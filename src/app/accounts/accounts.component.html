@@ -1,34 +1,39 @@
 
+<div class="accounts-container">
+	<div *ngFor="let acc of accounts" (click)="listTransactions(acc.accountUid, acc.defaultCategory)" class="account">
 
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Account ID</th>
-            <th>Balance</th>
-        </tr>
-    </thead>
-    <tr *ngFor="let acc of accounts" (click)="listTransactions(acc.accountUid, acc.defaultCategory)">
-        <td>
-            	{{ acc.holder?.accountHolderName }}
-            <div class="accountIdentifiers UK" *ngIf="acc.currency == 'GBP'">
-            	<b>Sort Code: </b> {{ acc.identifiers?.bankIdentifier }}<br/>
-            	<b>Account No: </b> {{ acc.identifiers?.accountIdentifier }}
-            </div>
-            <div class="accountIdentifiers nonUK" *ngIf="acc.currency != 'GBP'">
-            	<b>IBAN: </b> {{ acc.identifiers?.iban }}<br/>
-            	<b>Bic: </b> {{ acc.identifiers?.bic }}
-            </div>
-        </td>
-        <td>
-        	<b>Available Balance: </b>{{ acc.balances?.effectiveBalance.minorUnits/100 | currency: acc.balances?.effectiveBalance.currency }} <br/>
-        	<b>Cleared Balance: </b>{{ acc.balances?.clearedBalance.minorUnits/100 | currency: acc.balances?.clearedBalance.currency }} 
-        </td>
-    </tr>
-    <tr *ngIf="!accounts">
-        <td colspan="2">No accounts found</td>
-    </tr>
-</table>
-Number of Accounts: {{ accounts.length }}
-<br />
+		<div class="account-defs">
+			<div class="account-details">
+				<div class="account-name title">
+		            {{ acc.holder?.accountHolderName }}
+				</div>
+		        <div class="account-identifiers UK" *ngIf="acc.currency == 'GBP'">
+		        	<b>Sort Code: </b> {{ acc.identifiers?.bankIdentifier }}<br/>
+		        	<b>Account No: </b> {{ acc.identifiers?.accountIdentifier }}
+		        </div>
+		        <div class="account-identifiers nonUK" *ngIf="acc.currency != 'GBP'">
+		        	<b>IBAN: </b> {{ acc.identifiers?.iban }}<br/>
+		        	<b>Bic: </b> {{ acc.identifiers?.bic }}
+		        </div>
+		    </div>
 
-<app-accounts-transactions [accounts]=accounts></app-accounts-transactions>
+	        <div class="account-balances">
+	        	<div class="available balance">
+	        		<div class="label">Available Balance: </div><div class="amount">{{ acc.balances?.effectiveBalance.minorUnits/100 | currency: acc.balances?.effectiveBalance.currency }}</div>
+	        	</div>
+	        	<div class="cleared balance">
+	        		<div class="label">Cleared Balance: </div><div class="amount">{{ acc.balances?.clearedBalance.minorUnits/100 | currency: acc.balances?.clearedBalance.currency }} </div>
+	        	</div>
+	        	<div class="overdraft balance">
+	        		<div class="label">Cleared Balance: </div><div class="amount">{{ acc.balances?.acceptedOverdraft.minorUnits/100 | currency: acc.balances?.acceptedOverdraft.currency }} </div>
+	        	</div>
+	        </div>
+	    </div>
+
+	    <app-accounts-transactions [account]=acc></app-accounts-transactions>
+	</div>
+    <div class="account" *ngIf="!accounts">
+        No accounts found
+    </div>
+</div>
+

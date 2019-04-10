@@ -1,28 +1,30 @@
 
-<table *ngIf="transactions && transactions.length">
-	<tr>
-		<th>Description</th>
-		<th>Date</th>
-		<th>Amount In</th>
-		<th>Amount Out</th>
-	</tr>
+<div class="transactions" [class.is-open]="isOpen">
+	<table *ngIf="transactions && transactions.length">
+		<tr>
+			<th>Description</th>
+			<th>Date</th>
+			<th>Amount In</th>
+			<th>Amount Out</th>
+		</tr>
 
-	<tr *ngFor="let item of transactions">
-		<td>{{ item.counterPartyName }}<br>
-			{{ item.reference }}
-		</td>
-		<td> 
-			{{ item.transactionTime | date }}
-		</td>
-		<td>
-			<span *ngIf="item.direction === 'IN'">
-				{{ item.amount.minorUnits/100 | currency:item.amount.currency }}
-			</span>
-		</td>
-		<td>
-			<span *ngIf="item.direction === 'OUT'">
-				{{ item.amount.minorUnits/100 | currency:item.amount.currency }}
-			</span>
-		</td>
-	</tr>
-</table>
+		<tr *ngFor="let item of transactions">
+			<td>{{ item.counterPartyName }}<br>
+				{{ item.reference }}
+			</td>
+			<td> 
+				{{ item.transactionTime | date }}
+			</td>
+			<td>
+				<span *ngIf="item.direction === 'IN'">
+					{{ item.amount.minorUnits/100 | currency:item.amount.currency }}
+				</span>
+			</td>
+			<td>
+				<span *ngIf="item.direction === 'OUT'">
+					{{ item.amount.minorUnits/100 | currency:item.amount.currency }}
+				</span>
+			</td>
+		</tr>
+	</table>
+</div>

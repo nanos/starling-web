@@ -1,0 +1,25 @@
+body {
+	--lightcolour: #FFF9FB;
+	--mediumcolour: #D3D4D9;
+	--textcolour: #252627;
+
+	--accentcolour1: #4B88A2;
+	--accentcolour2: #BB0A21;
+
+	background-color: var(--FFF9FB);
+	color: var(--textcolour);
+	
+	font-family: 'Roboto', sans-serif;
+};
+
+body a {
+	color: var(--accentcolour1);
+}
+body a:hover,body a:focus,body a:active {
+	color: var(--accentcolour2);
+}
+
+
+body .title {
+	font-weight: bold;
+}

@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, HostListener, HostBinding } from '@angular/core';
+import { Component, OnInit, Input, Output, HostBinding } from '@angular/core';
 // import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { DataService } from '../../core/data.service';
@@ -10,36 +10,38 @@ import { ShowTransactionsService } from '../../core/show-transactions.service';
   styleUrls: ['./transactions.component.css']
 })
 export class AccountsTransactionsComponent implements OnInit {
-	private _accounts: any[] = [];
-  accounts: any[] = [];
+	private _account: any[] = [];
+  account: any[] = [];
   transactions: any[] = [];
-	@Input() get accounts(): any[] {
-		return this._accounts;
+  isOpen: boolean = false;
+	@Input() get account(): any[] {
+		return this._account;
 	}
 
-	set accounts(value: any[]) {
+	set account(value: any[]) {
 		if (value) {
-			this._accounts = value;
+			this._account = value;
 		}
 	}
 
-  @HostBinding('class.is-open')
-  isOpen = false;
+  @HostBinding('class.is-open') isOpen = false;
+
 
 
   constructor(private dataService: DataService, private showTransactionsService: ShowTransactionsService) { }
 
   ngOnInit() {
-  	this.showTransactionsService.change.subscribe(isOpen => {
-      this.isOpen = isOpen;
-      console.log( this.showTransactionsService.getParams() );
-      
-      this.dataService.getTransactions(this.showTransactionsService.getParams().accountId, this.showTransactionsService.getParams().categoryId)
-          .subscribe( (transactions:any[]) => this.transactions = transactions );
-    });
+  	this.showTransactionsService.change.subscribe( accountUid => {
+      // check we are using the current account
+      if ( accountUid == this.account.accountUid ) {
+
+        this.isOpen = !this.isOpen;
+        
+        this.dataService.getTransactions(this.account)
+            .subscribe( (transactions:any[]) => this.transactions = transactions );
+      }
+     });
   }
-
-
 
   listTransactions( id: string, category: string) {
     console.log('listing transactions', id, category);
