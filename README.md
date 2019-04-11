@@ -1,27 +1,30 @@
 # StarlingWeb
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.8.
+This is a very basic read only web interface for Starling Bank. It lists your accounts and transactions for the accounts. Filtering of transactions is possible by description and amount.
 
-## Development server
+At this time no further options are available.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Configuration
 
-## Code scaffolding
+Firstly, supply a file in `src/assets/config.json`. This file must have the following format:
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+    {
+      "api_keys": [
+        "Personal access token here",
+        "optionally further access tokens"
+      ]
+    }
 
-## Build
+You get your personal access tokens at <https://developer.starlingbank.com>.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Why multiple access tokens? Well, I have a personal and a business account with Starling, and you need separate tokens for each.
 
-## Running unit tests
+You will further need to configure proxying for the requests to the starling api. A `proxy.conf.json` sampe file is included in the repository. If you are using IIS you may use the `web.config` to configure proxying. 
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Security considerations
 
-## Running end-to-end tests
+This project was created purely for me to learn a bit about Angular - having never used it before. As such it is definitely not meant to be used for any serious purposes.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+One real problem is that the `config.json` not only needs to have the access tokens stored on disk (that's sort of unavoidable, although one coulde store the token in the environment, or takea few other approaches), but that that file gets served to the browser and potentially cached. Also the unencrypted access token gets sent back to the reverse proxy with every request to the Starling server (unless, of course, you configure your server to use HTTPS), so anyone sitting on your network might be able to read it.
 
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+As such this project comes with a huge disclaimer: Really don't use it! If you must, then ensure that the access token that you create for this app has only read privilges.
