@@ -1,0 +1,10 @@
+.balance {
+	display: flex;
+}
+.label {
+	margin-right: 1em;
+}
+.amount {
+	text-align: right;
+	margin-left: auto;
+}

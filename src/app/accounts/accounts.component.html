@@ -17,16 +17,10 @@
 		        </div>
 		    </div>
 
-	        <div class="account-balances">
-	        	<div class="available balance">
-	        		<div class="label">Available Balance: </div><div class="amount">{{ acc.balances?.effectiveBalance.minorUnits/100 | currency: acc.balances?.effectiveBalance.currency }}</div>
-	        	</div>
-	        	<div class="cleared balance">
-	        		<div class="label">Cleared Balance: </div><div class="amount">{{ acc.balances?.clearedBalance.minorUnits/100 | currency: acc.balances?.clearedBalance.currency }} </div>
-	        	</div>
-	        	<div class="overdraft balance">
-	        		<div class="label">Accepted Overdraft: </div><div class="amount">{{ acc.balances?.acceptedOverdraft.minorUnits/100 | currency: acc.balances?.acceptedOverdraft.currency }} </div>
-	        	</div>
+	        <div *ngIf="acc.balances" class="account-balances">
+	        	<app-dsp-balance [balance]=acc.balances.effectiveBalance label="Available Balance"></app-dsp-balance>
+	        	<app-dsp-balance [balance]=acc.balances.clearedBalance label="Cleared Balance"></app-dsp-balance>
+	        	<app-dsp-balance [balance]=acc.balances.acceptedOverdraft label="Accepted Overdraft"></app-dsp-balance>
 	        </div>
 	    </div>
 

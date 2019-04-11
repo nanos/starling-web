@@ -14,17 +14,6 @@
 	margin-left: auto;
 }
 
-.account-balances .balance {
-	display: flex;
-}
-.account-balances .balance .label {
-	margin-right: 1em;
-}
-.account-balances .balance .amount {
-	text-align: right;
-	margin-left: auto;
-}
-
 @media screen and (max-width: 560px) {
 	.account-defs {
 		display: block;

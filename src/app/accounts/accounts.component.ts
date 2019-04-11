@@ -14,14 +14,13 @@ export class AccountsComponent implements OnInit {
   title: string;
   baseUrl: string;
   accounts: IAccount[] = [] ;
-  transactionsListed: boolean = false;
 
   constructor( private dataService: DataService ) { }
 
   ngOnInit() {
     for( let key of AppConfig.settings.api_keys ) {
     	this.dataService.getAccounts( key )
-    	    .subscribe( (accounts:any[]) => {
+    	    .subscribe( (accounts:IAccount[]) => {
             for( let acc of accounts ) {
               acc.api_key = key;
               this.accounts.push(acc);

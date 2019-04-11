@@ -8,9 +8,10 @@ import { AccountsComponent } from './accounts.component';
 import { SharedModule } from '../shared/shared.module';
 import { AccountsTransactionsComponent } from './transactions/transactions.component';
 import { FilterTextboxComponent } from './filter-textbox/filter-textbox.component';
+import { DspBalanceComponent } from './dsp-balance/dsp-balance.component';
 
 @NgModule({
-  declarations: [AccountsComponent, AccountsTransactionsComponent, FilterTextboxComponent],
+  declarations: [AccountsComponent, AccountsTransactionsComponent, FilterTextboxComponent, DspBalanceComponent ],
   imports: [
     CommonModule,
     SharedModule,
