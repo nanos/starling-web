@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 
-import { IBalance } from '../../models/interfaces.model';
+import { IAmount } from '../../models/interfaces.model';
 
 @Component({
   selector: 'app-dsp-balance',
@@ -9,14 +9,14 @@ import { IBalance } from '../../models/interfaces.model';
 })
 export class DspBalanceComponent implements OnInit {
 
-  private _balance: IBalance;
+  private _balance: IAmount;
   private _label: string;
   
-  @Input() get balance(): IBalance {
+  @Input() get balance(): IAmount {
     return this._balance;
   }
 
-  set balance(value: IBalance) {
+  set balance(value: IAmount) {
     if (value) {
       this._balance = value;
     }

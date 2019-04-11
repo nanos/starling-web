@@ -3,17 +3,16 @@ export interface IAppConfig {
     starling_url: string
 }
 
+export interface IAmount {
+  currency: string,
+  minorUnits: number
+}
+
 export interface ITransaction {
   feedItemUid: string,
   categoryUid: string,
-  amount: {
-    currency: string,
-    minorUnits: number
-  },
-  sourceAmount: {
-    currency: string,
-    minorUnits: number
-  },
+  amount: IAmount,
+  sourceAmount: IAmount,
   direction: string,
   updatedAt: string,
   transactionTime: string,
@@ -33,11 +32,6 @@ export interface ITransaction {
   spendingCategory: string
 }
 
-export interface IBalance {
-  currency: string,
-  minorUnits: number
-}
-
 export interface IAccount {
   accountUid: string,
   defaultCategory: string,
@@ -54,29 +48,11 @@ export interface IAccount {
     accountHolderName: string
   },
   balances: {
-    clearedBalance: {
-      currency: string,
-      minorUnits: number
-    },
-    effectiveBalance: {
-      currency: string,
-      minorUnits: number
-    },
-    pendingTransactions: {
-      currency: string,
-      minorUnits: number
-    },
-    availableToSpend: {
-      currency: string,
-      minorUnits: number
-    },
-    acceptedOverdraft: {
-      currency: string,
-      minorUnits: number
-    },
-    amount: {
-      currency: string,
-      minorUnits: number
-    }
+    clearedBalance: IAmount,
+    effectiveBalance: IAmount,
+    pendingTransactions: IAmount,
+    availableToSpend: IAmount,
+    acceptedOverdraft: IAmount,
+    amount: IAmount
   }
 }
