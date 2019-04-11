@@ -4,6 +4,8 @@ This is a very basic read only web interface for Starling Bank. It lists your ac
 
 At this time no further options are available.
 
+See [Playing around with Angular and the Starling Bank API](https://msthomas.xyz/playing-around-with-angular-and-the-starling-bank-api/) for more information.
+
 ## Configuration
 
 Firstly, supply a file in `src/assets/config.json`. This file must have the following format:
