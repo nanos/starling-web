@@ -1,43 +1,43 @@
 
 <div class="transactions">
-	<h3 (click)="listTransactions()">Account transactions <i class="fas" [class.fa-angle-down]="!isOpen" [class.fa-angle-up]="isOpen"></i></h3>
-	<div class="list-transactions" [class.is-open]="isOpen">
-		<app-filter-textbox (changed)="filter($event)"></app-filter-textbox>
-		<table *ngIf="filteredTransactions">
-			<tr class="header">
-				<th>Description</th>
-				<th></th>
-				<th>Date</th>
-				<th>Amount</th>
-				<th></th>
-			</tr>
+  <h3 (click)="listTransactions()">Account transactions <i class="fas" [class.fa-angle-down]="!isOpen" [class.fa-angle-up]="isOpen"></i></h3>
+  <div class="list-transactions" [class.is-open]="isOpen">
+    <app-filter-textbox (changed)="filter($event)"></app-filter-textbox>
+    <table *ngIf="filteredTransactions">
+      <tr class="header">
+        <th>Description</th>
+        <th></th>
+        <th>Date</th>
+        <th>Amount</th>
+        <th></th>
+      </tr>
 
-			<tr *ngFor="let item of filteredTransactions" class="{{ item.status }}">
-				<td class="description">{{ item.counterPartyName }}<br>
-					{{ item.reference }}
-				</td>
-				<td class="source">
-					<i class="fas fa-{{ item.icon }}" title="{{ item.source | formatStarlingText }}"></i>
-				</td>
-				<td class="date"> 
-					{{ item.transactionTime | date }}
-				</td>
-				<td class="amount {{ item.direction }}">
-					{{ item.amount.minorUnits/100 | currency:item.amount.currency }}
-				</td>
-				<td class="status">
-	 				<i *ngIf="item.status !== 'SETTLED'" class="fas fa-info-circle" title="{{ item.status | formatStarlingText }}"></i>
-				</td>
-			</tr>
+      <tr *ngFor="let item of filteredTransactions" class="{{ item.status }}">
+        <td class="description">{{ item.counterPartyName }}<br>
+          {{ item.reference }}
+        </td>
+        <td class="source">
+          <i class="fas fa-{{ item.icon }}" title="{{ item.source | formatStarlingText }}"></i>
+        </td>
+        <td class="date"> 
+          {{ item.transactionTime | date }}
+        </td>
+        <td class="amount {{ item.direction }}">
+          {{ item.amount.minorUnits/100 | currency:item.amount.currency }}
+        </td>
+        <td class="status">
+           <i *ngIf="item.status !== 'SETTLED'" class="fas fa-info-circle" title="{{ item.status | formatStarlingText }}"></i>
+        </td>
+      </tr>
 
-			<tr *ngIf="!filteredTransactions.length">
-				<td colspan="5">
-					No transactions found
-				</td>
-			</tr>
-		</table>
-		<div class="loading" *ngIf="!filteredTransactions">
-			Loading...
-		</div>
-	</div>
+      <tr *ngIf="!filteredTransactions.length">
+        <td colspan="5">
+          No transactions found
+        </td>
+      </tr>
+    </table>
+    <div class="loading" *ngIf="!filteredTransactions">
+      Loading...
+    </div>
+  </div>
 </div>

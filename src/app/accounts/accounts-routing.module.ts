@@ -5,7 +5,7 @@ import { AccountsComponent } from './accounts.component';
 
 
 const routes: Routes = [
-	{ path: 'accounts', component: AccountsComponent }
+  { path: 'accounts', component: AccountsComponent }
 ];
 
 @NgModule({

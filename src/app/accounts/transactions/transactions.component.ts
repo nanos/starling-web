@@ -9,20 +9,20 @@ import { ITransaction, IAccount } from '../../models/interfaces.model';
   styleUrls: ['./transactions.component.css']
 })
 export class AccountsTransactionsComponent implements OnInit {
-	private _account: IAccount;
+  private _account: IAccount;
   filteredTransactions: ITransaction[];
 
   transactions: ITransaction[] = [];
   
   @Input() get account(): IAccount {
-		return this._account;
-	}
+    return this._account;
+  }
 
-	set account(value: IAccount) {
-		if (value) {
-			this._account = value;
-		}
-	}
+  set account(value: IAccount) {
+    if (value) {
+      this._account = value;
+    }
+  }
 
   @HostBinding('class.is-open') isOpen = false;
 

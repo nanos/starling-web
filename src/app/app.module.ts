@@ -29,12 +29,12 @@ export function initializeApp(appConfig: AppConfig) {
     AccountsModule
   ],
   providers: [
-  	AppConfig, { 
+    AppConfig, { 
       provide: APP_INITIALIZER,
-	    useFactory: initializeApp,
-	    deps: [AppConfig], 
+      useFactory: initializeApp,
+      deps: [AppConfig], 
       multi: true
-	 }
+   }
   ],
   bootstrap: [AppComponent]
 })

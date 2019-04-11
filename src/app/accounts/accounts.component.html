@@ -1,32 +1,32 @@
 
 <div class="accounts-container">
-	<div *ngFor="let acc of accounts" class="account">
+  <div *ngFor="let acc of accounts" class="account">
 
-		<h2 class="account-name title">
+    <h2 class="account-name title">
             {{ acc.holder?.accountHolderName }}
-		</h2>
-		<div class="account-defs">
-			<div class="account-details">
-		        <div class="account-identifiers UK" *ngIf="acc.currency == 'GBP'">
-		        	<b>Sort Code: </b> {{ acc.identifiers?.bankIdentifier }}<br/>
-		        	<b>Account No: </b> {{ acc.identifiers?.accountIdentifier }}
-		        </div>
-		        <div class="account-identifiers nonUK" *ngIf="acc.currency != 'GBP'">
-		        	<b>IBAN: </b> {{ acc.identifiers?.iban }}<br/>
-		        	<b>Bic: </b> {{ acc.identifiers?.bic }}
-		        </div>
-		    </div>
+    </h2>
+    <div class="account-defs">
+      <div class="account-details">
+            <div class="account-identifiers UK" *ngIf="acc.currency == 'GBP'">
+              <b>Sort Code: </b> {{ acc.identifiers?.bankIdentifier }}<br/>
+              <b>Account No: </b> {{ acc.identifiers?.accountIdentifier }}
+            </div>
+            <div class="account-identifiers nonUK" *ngIf="acc.currency != 'GBP'">
+              <b>IBAN: </b> {{ acc.identifiers?.iban }}<br/>
+              <b>Bic: </b> {{ acc.identifiers?.bic }}
+            </div>
+        </div>
 
-	        <div *ngIf="acc.balances" class="account-balances">
-	        	<app-dsp-balance [balance]=acc.balances.effectiveBalance label="Available Balance"></app-dsp-balance>
-	        	<app-dsp-balance [balance]=acc.balances.clearedBalance label="Cleared Balance"></app-dsp-balance>
-	        	<app-dsp-balance [balance]=acc.balances.acceptedOverdraft label="Accepted Overdraft"></app-dsp-balance>
-	        </div>
-	    </div>
+          <div *ngIf="acc.balances" class="account-balances">
+            <app-dsp-balance [balance]=acc.balances.effectiveBalance label="Available Balance"></app-dsp-balance>
+            <app-dsp-balance [balance]=acc.balances.clearedBalance label="Cleared Balance"></app-dsp-balance>
+            <app-dsp-balance [balance]=acc.balances.acceptedOverdraft label="Accepted Overdraft"></app-dsp-balance>
+          </div>
+      </div>
 
-	    <app-accounts-transactions [account]=acc>
-	    </app-accounts-transactions>
-	</div>
+      <app-accounts-transactions [account]=acc>
+      </app-accounts-transactions>
+  </div>
     <div class="account" *ngIf="!accounts">
         No accounts found
     </div>

@@ -7,7 +7,6 @@ import { IAccount } from '../models/interfaces.model';
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
-  
   styleUrls: ['./accounts.component.css']
 })
 export class AccountsComponent implements OnInit {
@@ -19,8 +18,8 @@ export class AccountsComponent implements OnInit {
 
   ngOnInit() {
     for( let key of AppConfig.settings.api_keys ) {
-    	this.dataService.getAccounts( key )
-    	    .subscribe( (accounts:IAccount[]) => {
+      this.dataService.getAccounts( key )
+          .subscribe( (accounts:IAccount[]) => {
             for( let acc of accounts ) {
               acc.api_key = key;
               this.accounts.push(acc);

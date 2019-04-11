@@ -1,21 +1,21 @@
 .account {
-	padding: 1em;
-	margin: 1em;
-	background-color: var(--mediumcolour);
-	cursor: pointer;
+  padding: 1em;
+  margin: 1em;
+  background-color: var(--mediumcolour);
+  cursor: pointer;
 }
 
 
 .account-defs {
-	display: flex;
+  display: flex;
 }
 
 .account-defs :last-child {
-	margin-left: auto;
+  margin-left: auto;
 }
 
 @media screen and (max-width: 560px) {
-	.account-defs {
-		display: block;
-	}
+  .account-defs {
+    display: block;
+  }
 }
