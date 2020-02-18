@@ -57,7 +57,7 @@ export class DataService {
   }
 
   getTransactions(account: IAccount): Observable<any> {
-    return this.http.get('/api/v2/feed/account/'+account.accountUid+'/category/'+account.defaultCategory, this.getAuthHeader(account)).pipe(
+    return this.http.get('/api/v2/feed/account/'+account.accountUid+'/category/'+account.defaultCategory+'?changesSince=2017-01-01T00:00:00.000Z', this.getAuthHeader(account)).pipe(
       map( (resp:any)=> {
         return resp.feedItems;
       }),
