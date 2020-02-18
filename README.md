@@ -23,6 +23,10 @@ Why multiple access tokens? Well, I have a personal and a business account with 
 
 You will further need to configure proxying for the requests to the starling api. A `proxy.conf.json` sampe file is included in the repository. If you are using IIS you may use the `web.config` to configure proxying. 
 
+## Run and build
+
+For debug mode use `ng serve  --proxy-config proxy.conf.json`. To build prod mode run `ng build`.
+
 ## Security considerations
 
 This project was created purely for me to learn a bit about Angular - having never used it before. As such it is definitely not meant to be used for any serious purposes.
