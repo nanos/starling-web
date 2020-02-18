@@ -21,15 +21,33 @@ export class DataService {
   }
 
   getAccounts( api_key: string) : Observable<any> {
-    const account = {api_key : api_key} as IAccount;
+    const account = { api_key: api_key } as IAccount;
     return this.http.get('/api/v2/accounts', this.getAuthHeader(account)).pipe(
       map( (resp:any) => {
         const accounts: IAccount[] = [];
         for( let acc of resp.accounts ) {
-          acc.api_key = api_key
+          acc.api_key = api_key;
+          acc.grandTotal = {
+            currency: acc.currency,
+            minorUnits: 0
+          };
+          acc.goalsBalance = {
+            currency: acc.currency,
+            minorUnits: 0
+          };
           this.getAccountIdentifiers(acc).subscribe((identifiers:any[]) => acc.identifiers = identifiers);
-          this.getAccountBalances(acc).subscribe((balances:any[]) => acc.balances = balances);
-          this.getAccountHolder(acc).subscribe((holder:any[]) => acc.holder = holder);
+          this.getAccountBalances(acc).subscribe((balances: any) => {
+            acc.balances = balances;
+            acc.grandTotal.minorUnits += balances.clearedBalance.minorUnits;
+          });
+          this.getAccountHolder(acc).subscribe((holder: any[]) => acc.holder = holder);
+          this.getSavingsGoals(acc).subscribe((goals: any) => {
+            goals.savingsGoalList.forEach(goal => {
+              acc.goalsBalance.minorUnits += goal.totalSaved.minorUnits;
+            });
+            acc.grandTotal.minorUnits += acc.goalsBalance.minorUnits;
+            console.log(acc.grandTotal);
+          });
           accounts.push(acc);
         }
         return accounts;
@@ -52,6 +70,12 @@ export class DataService {
 
   getAccountBalances(account: IAccount): Observable<any>{
     return this.http.get('/api/v2/accounts/'+account.accountUid+'/balance', this.getAuthHeader(account)).pipe(
+      catchError(this.handleError)
+    );
+  }
+
+  getSavingsGoals(account: IAccount): Observable<any>{
+    return this.http.get('/api/v2/account/' + account.accountUid + '/savings-goals', this.getAuthHeader(account)).pipe(
       catchError(this.handleError)
     );
   }

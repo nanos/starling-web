@@ -18,13 +18,14 @@
         </div>
 
           <div *ngIf="acc.balances" class="account-balances">
-            <app-dsp-balance [balance]=acc.balances.effectiveBalance label="Available Balance"></app-dsp-balance>
-            <app-dsp-balance [balance]=acc.balances.clearedBalance label="Cleared Balance"></app-dsp-balance>
-            <app-dsp-balance [balance]=acc.balances.acceptedOverdraft label="Accepted Overdraft"></app-dsp-balance>
+            <app-dsp-balance [balance]="acc.balances.effectiveBalance" label="Available Balance"></app-dsp-balance>
+            <app-dsp-balance [balance]="acc.goalsBalance" label="Goals"></app-dsp-balance>
+            <app-dsp-balance class="total" [balance]="acc.grandTotal" label="Total Cleared"></app-dsp-balance>
+            <app-dsp-balance class="overdraft" [balance]="acc.balances.acceptedOverdraft" label="Accepted Overdraft"></app-dsp-balance>
           </div>
       </div>
 
-      <app-accounts-transactions [account]=acc>
+      <app-accounts-transactions [account]="acc">
       </app-accounts-transactions>
   </div>
     <div class="account" *ngIf="!accounts">

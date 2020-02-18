@@ -8,3 +8,10 @@
   text-align: right;
   margin-left: auto;
 }
+
+:host.total {
+  font-weight: bold;
+}
+:host.overdraft {
+  color: var(--accentcolour1);
+}

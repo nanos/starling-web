@@ -52,6 +52,8 @@ export interface IAccount {
     pendingTransactions: IAmount,
     availableToSpend: IAmount,
     acceptedOverdraft: IAmount,
-    amount: IAmount
-  }
+    amount: IAmount,
+  },
+  grandTotal: IAmount,
+  goalsBalance: IAmount,
 }
